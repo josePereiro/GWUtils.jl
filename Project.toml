@@ -1,7 +1,7 @@
 name = "GWUtils"
 uuid = "772e7830-88e0-466f-82c6-af9b8962b67b"
 authors = ["josePereiro <jose.pereiro.personal@gmail.com> and contributors"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
