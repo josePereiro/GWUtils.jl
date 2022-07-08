@@ -1,7 +1,14 @@
 _mkdir(path) = mkpath(dirname(path))
 
-_readdir(dir; join::Bool = false, sort::Bool = true) = 
-    try; readdir(dir; join, sort) catch err; String[] end 
+_write(filename::AbstractString, x, onerr = -1) = 
+    try; write(filename, x) catch _; onerr end 
+
+_read(filename::AbstractString, T, onerr = nothing) = 
+    try; read(filename, T) catch _; onerr end 
+
+
+_readdir(dir, onerr = String[]; join::Bool = false, sort::Bool = true) = 
+    try; readdir(dir; join, sort) catch _; onerr end 
 
 function _readdir(f::Function, dir; kwargs...)
     for file in _readdir(dir; kwargs...)
@@ -9,10 +16,7 @@ function _readdir(f::Function, dir; kwargs...)
     end
 end
 
-function _rm(path)
-    try; rm(path; recursive = true, force = true)
-    catch err; end
-end
+_rm(path) = try; rm(path; recursive = true, force = true) catch _; nothing end
 
 function _foldersize(dir)
     size = 0
@@ -22,10 +26,10 @@ function _foldersize(dir)
     return size
 end
 
-function _cp(src::AbstractString, dst::AbstractString)
-    try; cp(src, dst; force = true)
-    catch err; end
-end
+_cp(src::AbstractString, dst::AbstractString) = try
+    _mkdir(dst)
+    cp(src, dst; force = true) 
+catch _; nothing end
 
 # get the rel path from basename(startpath)
 function _relbasepath(path, startpath)
@@ -71,4 +75,11 @@ function _clear_git_repo_wdir(gl_repo)
         endswith(path, ".git") && continue
         _rm(path)
     end
+end
+
+function _dirname(path::AbstractString, n::Int = 1)
+    for _ in 1:n
+        path = dirname(path)
+    end
+    return path
 end

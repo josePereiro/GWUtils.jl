@@ -8,15 +8,13 @@ function _gw_filelog_formater(io, args)
         println(io)
     else
         # Separator
-        timetag = Dates.format(now(), "HH:MM:SS")
-        sep = string("--- ", timetag, " ---")
-        println(io, sep)
-        println(io, args.level, " | ", args.message)
+        timetag = Dates.format(now(), "HH:MM:SS.sss")
+        println(io, "> ", args.level, " [", timetag , "]: ", args.message)
         for (k, v) in args.kwargs
             kstr = string(k)
             vstr = string(v)
             length(vstr) > 60 ? 
-                println(io, kstr, ":\n", vstr) :
+                println(io, kstr, ":\n ", vstr) :
                 println(io, kstr, ": ", vstr)
         end
     end

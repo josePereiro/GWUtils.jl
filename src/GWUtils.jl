@@ -5,6 +5,7 @@ import Logging: ConsoleLogger, global_logger, with_logger
 import LoggingExtras
 import LoggingExtras: TeeLogger, DatetimeRotatingFileLogger
 using Dates
+using TOML
 
 include("FileTracker.jl")
 include("TkeyDict.jl")
@@ -14,7 +15,6 @@ include("exportall.jl")
 include("fileutils.jl")
 include("flush_all.jl")
 include("hash_file.jl")
-include("julia_cmd.jl")
 include("logging.jl")
 include("nusv_file.jl")
 include("printerr.jl")

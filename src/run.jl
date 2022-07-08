@@ -46,6 +46,11 @@ function _spawn_bash(src::String; cmdkwargs...)
     return _try_getpid(proc)
 end
 
+function _spawn_cmd(cmd::Cmd)
+    proc = run(cmd; wait = false)
+    return _try_getpid(proc)
+end
+
 ## ------------------------------------------------------------
 # run
 function _run_bash(src::String; cmdkwargs...)
@@ -53,3 +58,14 @@ function _run_bash(src::String; cmdkwargs...)
     run(cmd; wait = true)
     return nothing
 end
+
+## ------------------------------------------------------------
+# cmd to string
+function _to_string_cmd(cmd::Cmd)
+    cmd_str = string(cmd)
+    cmd_str = replace(cmd_str, r"\A\`" => "")
+    cmd_str = replace(cmd_str, r"\`\Z" => "")
+    return cmd_str
+end
+
+_julia_cmd_str() = _to_string_cmd(Base.julia_cmd())

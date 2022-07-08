@@ -6,7 +6,7 @@ function _write_toml(fn::String, dat::Dict; sorted = true)
     end
 end
 
-_write_toml(fn; kwargs...) = _write_toml(fn, _dict(kwargs...))
+_write_toml(fn; kwargs...) = _write_toml(fn, TkeyDict(kwargs, Symbol))
 
 function _read_toml(fn)
     !isfile(fn) && return Dict{String, Any}()
