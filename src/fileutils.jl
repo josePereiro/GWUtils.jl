@@ -47,7 +47,7 @@ function _relbasepath(path, startpath)
 	return relpath_
 end
 
-_filesize(path::String) = isfile(path) ? filesize(path) : 0
+_filesize(path::AbstractString) = isfile(path) ? filesize(path) : 0
 
 function _countbytes(path::AbstractString)
     nb = 0

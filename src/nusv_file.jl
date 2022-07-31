@@ -5,12 +5,12 @@ function _nusv_file_name(v, vs...)
     join(string.((v, vs...)), _GW_NUSV_SEP)
 end
 
-function _parse_nusv(fn::String)
+function _parse_nusv(fn::AbstractString)
     n = basename(fn)
     string.(split(n, _GW_NUSV_SEP; keepempty = false))
 end
 
-function _has_usvvalue(fn::String, hint)
+function _has_usvvalue(fn::AbstractString, hint)
     hint = string(hint)
     values = _parse_nusv(fn)
     for v in values

@@ -1,4 +1,4 @@
-function _hash_file(fn::String)
+function _hash_file(fn::AbstractString)
     h0 = hash("")
     !isfile(fn) && return h0
     for line in eachline(fn)

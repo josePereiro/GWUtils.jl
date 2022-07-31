@@ -2,7 +2,7 @@
 
 ## ------------------------------------------------------------
 # Utils
-function _printcmd(str::String; len = 60)
+function _printcmd(str::AbstractString; len = 60)
     isempty(str) && return
     str = strip(str)
     if length(str) > len
@@ -26,7 +26,7 @@ function _read_cmd(cmd::Cmd;
     return out
 end
 
-function _read_bash(src::String; 
+function _read_bash(src::AbstractString; 
         print_fun = _printcmd,
         ignorestatus = true, 
         verbose = true,
@@ -40,7 +40,7 @@ end
 
 ## ------------------------------------------------------------
 # spawn
-function _spawn_bash(src::String; cmdkwargs...)
+function _spawn_bash(src::AbstractString; cmdkwargs...)
     cmd = Cmd(`bash -c $(src)`; cmdkwargs...)
     proc = run(cmd; wait = false)
     return _try_getpid(proc)
@@ -53,7 +53,7 @@ end
 
 ## ------------------------------------------------------------
 # run
-function _run_bash(src::String; cmdkwargs...)
+function _run_bash(src::AbstractString; cmdkwargs...)
     cmd = Cmd(`bash -c $(src)`; cmdkwargs...)
     run(cmd; wait = true)
     return nothing

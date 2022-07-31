@@ -9,7 +9,7 @@ From the client, track on demand (make also a loop for async tracking)
 ## ------------------------------------------------------------------
 mutable struct FileListener
     on_init::Function
-    path::String
+    path::AbstractString
     cursor::Int
     size::Int
 
@@ -24,7 +24,7 @@ end
 struct DirListener
     filter::Function
     on_init::Function
-    path::String
+    path::AbstractString
     file_listeners::Dict{String, FileListener}
 
     DirListener(filter::Function, on_init::Function, path::AbstractString) = new(filter, on_init, path, Dict{String, FileListener}())
@@ -52,7 +52,6 @@ function _readbytes!(fl::FileListener)
     reg_size = fl.size
     curr_size = _filesize(fl.path)
     curr_size != reg_size || return bytes
-    # @show fl
 
     # print
     open(fl.path, "r") do io
